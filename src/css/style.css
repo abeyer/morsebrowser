@@ -34,6 +34,12 @@ section:last-of-type {
     line-height: 1.2;
 }
 
+#build-info {
+    display: block;
+    margin-bottom: .5rem;
+    color: red;
+}
+
 #credits-and-info>span {
     display: block;
     margin-top: 0;
