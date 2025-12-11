@@ -746,6 +746,20 @@
                                                     data-bind="attr:{ src: morseVoice.voiceSpelling() ? morseLoadImages().getSrc('checkImage') : morseLoadImages().getSrc('circleImage')}" />
                                             </label>
                                         </div>
+                                        <div class="col-auto"
+                                            data-bind="if: showExpertSettings() && morseVoice.voiceEnabled() && morseVoice.voiceSpelling()">
+
+                                            <input type="checkbox" class="btn-check" autocomplete="off"
+                                                aria-label="Phonetic" id="btncheckphoneticspell"
+                                                data-bind="checked: morseVoice.phoneticSpelling">
+                                            <label class=" btn btn-outline-primary" for="btncheckphoneticspell"
+                                                aria-hidden="true">
+                                                <img
+                                                    data-bind="attr:{ src: morseLoadImages().getSrc('spellcheckImage')}">&nbsp;Phonetic&nbsp;
+                                                <img
+                                                    data-bind="attr:{ src: morseVoice.phoneticSpelling() ? morseLoadImages().getSrc('checkImage') : morseLoadImages().getSrc('circleImage')}" />
+                                            </label>
+                                        </div>
                                         <!-- voice manual-->
                                         <div class="col-auto"
                                             data-bind="if: showExpertSettings() && morseVoice.voiceEnabled()">

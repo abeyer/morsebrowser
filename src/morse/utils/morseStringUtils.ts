@@ -1,6 +1,36 @@
 import { setMaxListeners } from 'process'
 import wordifiers from '../../configs/wordify.json'
 import WordInfo from './wordInfo'
+
+const phonetics = new Map<string, string>([
+  ['a', 'alfa'],
+  ['b', 'bravo'],
+  ['c', 'charlie'],
+  ['d', 'delta'],
+  ['e', 'echo'],
+  ['f', 'foxtrot'],
+  ['g', 'golf'],
+  ['h', 'hotel'],
+  ['i', 'india'],
+  ['j', 'juliet'],
+  ['k', 'kilo'],
+  ['l', 'lima'],
+  ['m', 'mike'],
+  ['n', 'november'],
+  ['o', 'oscar'],
+  ['p', 'papa'],
+  ['q', 'qubec'],
+  ['r', 'romeo'],
+  ['s', 'sierra'],
+  ['t', 'tango'],
+  ['u', 'uniform'],
+  ['v', 'victor'],
+  ['w', 'whiskey'],
+  ['x', 'x ray'],
+  ['y', 'yankee'],
+  ['z', 'zulu']
+])
+
 export default class MorseStringUtils {
   static doReplacements = (s:string):string => {
     const afterReplaced = s
@@ -94,5 +124,13 @@ export default class MorseStringUtils {
       }
     })
     return fixed
+  }
+
+  static phoneticize = (s:string):string => {
+    let key = s.trim().toLowerCase()
+    if (phonetics.has(key)) {
+      return phonetics.get(key)
+    }
+    return s
   }
 }

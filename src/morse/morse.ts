@@ -681,7 +681,7 @@ export class MorseViewModel {
         this.currentIndex() >= this.morseVoice.voiceBuffer.length) {
     // populate the voiceBuffer even if not speaking, as we might be caching
       const currentWord = this.words()[this.currentIndex()]
-      const speakText = currentWord.speakText(this.morseVoice.voiceSpelling())
+      const speakText = currentWord.speakText(this.morseVoice.voiceSpelling(), this.morseVoice.phoneticSpelling())
       const vbInfo = new VoiceBufferInfo()
       vbInfo.txt = speakText
       vbInfo.idx = this.currentIndex()
