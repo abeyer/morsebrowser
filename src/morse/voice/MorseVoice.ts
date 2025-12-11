@@ -28,6 +28,7 @@ export class MorseVoice implements ICookieHandler {
   voiceBufferMaxLength:ko.Observable<number>
   ctxt:MorseViewModel
   voiceSpelling:ko.Observable<boolean>
+  phoneticSpelling:ko.Observable<boolean>
   // keep a reference because read that garbage collector can grab
   // and onend never fires?!
   currentUtterance:SpeechSynthesisUtterance
@@ -58,6 +59,7 @@ export class MorseVoice implements ICookieHandler {
     this.voiceBuffer = []
     this.voiceBufferMaxLength = ko.observable(1)
     this.voiceSpelling = ko.observable(true)
+    this.phoneticSpelling = ko.observable(true)
     this.voiceLastOnly = ko.observable(false)
     this.manualVoice = ko.observable(false)
     this.speakFirst = ko.observable(false)
@@ -319,6 +321,10 @@ export class MorseVoice implements ICookieHandler {
     target = cookies.find(x => x.key === 'voiceSpelling')
     if (target) {
       this.voiceSpelling(GeneralUtils.booleanize(target.val))
+    }
+    target = cookies.find(x => x.key === 'phoneticSpelling')
+    if (target) {
+      this.phoneticSpelling(GeneralUtils.booleanize(target.val))
     }
     target = cookies.find(x => x.key === 'voiceThinkingTime')
     if (target) {

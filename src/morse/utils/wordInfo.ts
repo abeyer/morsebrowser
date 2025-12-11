@@ -55,7 +55,7 @@ export default class WordInfo {
     }).join(' ')
   }
 
-  speakText (forceSpelling:boolean):string {
+  speakText (forceSpelling:boolean, phoneticSpelling:boolean):string {
     return this.pieces.map(p => {
       const override = this.parseOverride(p)
       if (!override) {
@@ -63,13 +63,21 @@ export default class WordInfo {
         if (!forceSpelling) {
           return MorseStringUtils.wordifyPunctuation(base)
         } else {
-          let preMathCheck = base.replace(/>/g, '').replace(/</g, '').split('').map(m => MorseStringUtils.wordifyPunctuation(m, true)).join(' ')
-          // fix for weird issue of voice treating e or E as exponent and spearking "multiply by" or something like that
-          const replaceSpacesAroundE = (input) => {
-            return input.replace(/(\d) e (\d)/gi, '$1,e,$2')
+          let preMathCheck = base.replace(/>/g, '').replace(/</g, '').split('').map(m => MorseStringUtils.wordifyPunctuation(m, true))
+          let resultString:string = ''
+
+          if (phoneticSpelling) {
+            resultString = preMathCheck.map(m => MorseStringUtils.phoneticize(m)).join(' ')
+          } else {
+            resultString = preMathCheck.join(' ')
+            // fix for weird issue of voice treating e or E as exponent and spearking "multiply by" or something like that
+            const replaceSpacesAroundE = (input) => {
+              return input.replace(/(\d) e (\d)/gi, '$1,e,$2')
+            }
+            resultString = replaceSpacesAroundE(resultString)
           }
-          preMathCheck = replaceSpacesAroundE(preMathCheck)
-          return preMathCheck
+          console.log(`resultString: «${resultString}»`)
+          return resultString
         }
       } else {
         if (!forceSpelling) {
